@@ -1,0 +1,544 @@
+//falta el menu del display OLED 128 X 64
+#include<Keyboard.h>
+#include<Mouse.h>
+
+#include<Wire.h>
+#include<OLED_I2C.h>
+
+#define ansho 128
+#define alto 64
+OLED pantasha(2,3);
+int ds= 12;
+int dasfuck=250;
+int daaa= 120;
+int daa=126;
+
+//
+//|||||||||||||M O U S E||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+int horzPin = A0;  // Analog output of horizontal joystick pin
+int vertPin = A1;  // Analog output of vertical joystick pin
+int selPin = 9;  // select button pin of joystick
+
+int vertZero, horzZero;  // Stores the initial value of each axis, usually around 512
+int vertValue, horzValue;  // Stores current analog output of each axis
+const int sensitivity = 220;  // Higher sensitivity value = slower mouse, should be <= about 500
+int mouseClickFlag = 0;
+
+int invertMouseR = 1;        //Invert joystick based on orientation
+int invertMouse = -1;         //Noninverted joystick based on orientation
+
+///RIGHT MOD///////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+int A= 4;
+int B= 5;
+int C= 6;
+int dosA;
+int dosB;
+int tresA;
+int cuatroA;
+int cuaB;
+int unoB;
+int unoA;
+int tresB;
+const int OutMux= A3;
+
+ // Stores current analog output of each axis
+
+//|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+///LEFT MOD///////////////////////////////////////////////////////////////////////////////////
+
+int AA= 0;
+int BB= 1;
+int CC= 7;
+int dosAA;
+int dosBB;
+int tresAA;
+int cuatroAA;
+int cuatroBB;
+int unoBB;
+int unoAA;
+int tresBB;
+const int OutMuxi=A2;
+int dosAAxd;
+int pipademanzana=HIGH;
+
+//||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+////////////////////////GENERAL MOD/////////////GENERAL MOD/////////////GENERAL MOD/////////////GENERAL MOD/////////////GENERAL MOD/////////////GENERAL MOD/////////////GENERAL MOD/////////////
+int D= 15;
+int E= 14;
+int F= 16;
+int tab;
+int shift;
+int espacio;
+int alt;
+int gr;
+int ctrl;
+int rightclick;
+int deletee;
+const int digiOUT=10;
+
+
+int predial=HIGH;
+int pep= HIGH;
+int pepto= HIGH;
+int peptobismol= HIGH;
+int pepa= HIGH;
+int pepapig= HIGH;
+int gipapep= HIGH;
+
+//MAC
+//char ctrl=KEY_LEFT_GUI;
+//WIN LINUX:
+char del= 178;
+char ctrlKey= KEY_LEFT_CTRL;
+char shifteo= KEY_LEFT_SHIFT;
+char tabb= KEY_TAB;
+char altoi= KEY_LEFT_ALT;
+char scrup=0xDA;//up
+char scown=0xD9;//down
+char scright=0xD7;//right
+char scleft= 0xD8;//left
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void setup() {
+//////D I S P L A Y//////////////////////////////////////////////////////////////////
+Wire.begin();
+pantasha.begin(SSD1306_128X64);
+pantasha.clrScr();
+pantasha.setBrightness(255);
+
+///////////mouse////////////////////////
+
+  pinMode(horzPin, INPUT);  // Set both analog pins as inputs
+  pinMode(vertPin, INPUT);
+  pinMode(selPin, INPUT);  // set button select pin as input
+  digitalWrite(selPin, HIGH);  // Pull button select pin high
+  delay(1000);  // short delay to let outputs settle
+  vertZero = analogRead(vertPin);  // get the initial values
+  horzZero = analogRead(horzPin);  // Joystick should be in neutral position when reading these
+
+  Mouse.begin();
+
+  ////////teclado//////////////////////////////
+ pinMode(A,OUTPUT);
+ pinMode(B,OUTPUT);
+ pinMode(C,OUTPUT);
+ pinMode(AA,OUTPUT);
+ pinMode(BB,OUTPUT);
+ pinMode(CC,OUTPUT);
+
+ Keyboard.begin();
+ 
+ ///////////M A C R O A C C I O N I////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   pinMode(D,OUTPUT);
+   pinMode(E,OUTPUT);
+   pinMode(F,OUTPUT);
+   pinMode(10,INPUT_PULLUP);
+
+
+ //Serial.begin(9600);
+ 
+}
+
+
+void loop() {
+
+///////////////////D I S P L A Y//////////////////////////////
+
+
+
+//////////////////M A C R O  M O D//////////////////M A C R O  M O D//////////////////M A C R O  M O D//////////////////M A C R O  M O D//////////////////M A C R O  M O D//////////////////M A C R O  M O D
+digitalWrite(D,HIGH);
+digitalWrite(E,LOW);
+digitalWrite(F,LOW);
+deletee=digitalRead(10);
+if(deletee==LOW&&gipapep==HIGH){
+  Keyboard.press(del);
+}
+if(deletee==HIGH&&gipapep==LOW){
+  Keyboard.release(del);
+}
+gipapep=deletee;
+
+digitalWrite(D,LOW);
+digitalWrite(E,LOW);
+digitalWrite(F,LOW);
+gr=digitalRead(10);
+if(gr == LOW && predial == HIGH){
+  Keyboard.press('.');
+}
+if(gr== HIGH && predial == LOW){
+  Keyboard.release('.');
+}
+predial=gr;
+
+digitalWrite(D,LOW);
+digitalWrite(E,HIGH);
+digitalWrite(F,LOW);
+espacio=digitalRead(10);
+if(espacio==LOW && pep == HIGH){
+  Keyboard.write(' ');
+}
+if(espacio==HIGH && pep == LOW){
+   Keyboard.release(' ');
+}
+pep=espacio;
+//espacio
+
+digitalWrite(D,HIGH);
+digitalWrite(E,HIGH);
+digitalWrite(F,LOW);
+ctrl=digitalRead(10);
+if(ctrl==LOW&&pepto==HIGH){
+  Keyboard.press(',');
+}
+if(ctrl==HIGH&&pepto==LOW){
+  Keyboard.release(',');
+}
+pepto=ctrl;
+
+digitalWrite(D,LOW);
+digitalWrite(E,LOW);
+digitalWrite(F,HIGH);
+alt=digitalRead(digiOUT);
+if(alt==LOW&&peptobismol==HIGH){
+  Keyboard.press(ctrlKey);
+}
+if(alt==HIGH&&peptobismol==LOW){
+  Keyboard.release(ctrlKey);
+}
+peptobismol=alt;
+
+digitalWrite(D,HIGH);
+digitalWrite(E,LOW);
+digitalWrite(F,HIGH);
+rightclick=digitalRead(10);
+if(rightclick==LOW&&pepapig==HIGH) {
+  Mouse.press(MOUSE_RIGHT);}
+ if(rightclick==HIGH&&pepapig==LOW) { 
+  Mouse.release(MOUSE_RIGHT);
+   }
+pepapig=rightclick;
+
+
+
+
+
+//||||||||||||||||||||||||||RIGHT MOD||||||||||||||||||RIGHT MODRIGHT MODRIGHT MODRIGHT MODRIGHT MODRIGHT MODRIGHT MODRIGHT MODRIGHT MODRIGHT MODRIGHT MODRIGHT MODRIGHT MODRIGHT MODRIGHT MODRIGHT MODRIGHT MOD
+digitalWrite(A,LOW);
+digitalWrite(B,LOW);
+digitalWrite(C,LOW);
+cuaB= analogRead(A3);
+//Serial.print("cuatroB: ");
+//Serial.println(cuaB);
+if(cuaB > 1015){  
+  Keyboard.press('f');
+  delay(daa);
+  Keyboard.release('f');
+   delay(ds);
+}
+else if (cuaB < 40){
+   Keyboard.press('m');
+   delay(daa);
+   Keyboard.release('m');
+   delay(ds);
+}
+
+digitalWrite(A,HIGH);
+digitalWrite(B,LOW);
+digitalWrite(C,LOW);
+dosB= analogRead(A3);
+//Serial.print("              ");
+//Serial.print("dosB: ");
+//Serial.println(dosB);
+if(dosB > 1015){  
+  Keyboard.press('v');
+ delay(daa);
+   Keyboard.release('v');
+   delay(ds);
+}
+else if (dosB < 5){
+   Keyboard.press('c');
+   delay(daa);
+   Keyboard.release('c');
+   delay(ds);
+}
+
+
+digitalWrite(A,LOW);
+digitalWrite(B,HIGH);
+digitalWrite(C,LOW);
+dosA= analogRead(A3);
+//Serial.print("                        ");
+//Serial.print("dosA: ");
+//Serial.println(dosA);
+if(dosA > 1015){  
+  Keyboard.press('x');
+ delay(daa);
+  Keyboard.release('x');
+ delay(ds);
+}
+else if (dosA < 5){
+   Keyboard.press('z');
+   delay(daa);
+   Keyboard.release('z');
+   delay(ds);
+}
+
+
+digitalWrite(A,HIGH);
+digitalWrite(B,HIGH);
+digitalWrite(C,LOW);
+cuatroA= analogRead(A3);
+//Serial.print("                                      ");
+//Serial.print("cua A: ");
+//Serial.println(cuatroA);
+if(cuatroA > 1015){  
+  Keyboard.press('t');
+  delay(daaa);
+    Keyboard.release('t');
+    delay(ds);
+}
+else if (cuatroA < 40){
+   Keyboard.press('l');
+    delay(daaa);
+   Keyboard.release('l');
+  delay(ds);
+}
+
+digitalWrite(A,HIGH);
+digitalWrite(B,LOW);
+digitalWrite(C,HIGH);
+tresB= analogRead(A3);
+//Serial.print("                                            ");
+//Serial.print("tresB: ");
+//Serial.println(tresB);
+if(tresB > 1015){  
+  Keyboard.press('b');
+   delay(daaa);
+   Keyboard.release('b');
+    delay(ds);
+}
+else if (tresB < 40){
+   Keyboard.press('r');
+   delay(daaa);
+   Keyboard.release('r');
+  delay(ds);
+}
+
+
+digitalWrite(A,LOW);
+digitalWrite(B,HIGH);
+digitalWrite(C,HIGH);
+unoA= analogRead(A3);
+//Serial.print("                                                    ");
+//Serial.print("unoA: ");
+//Serial.println(unoA);
+if(unoA > 1015){  
+  Keyboard.press('j');
+    delay(daaa);
+   Keyboard.release('j');
+ delay(ds);
+}
+else if (unoA < 40){
+   Keyboard.press('n');
+   delay(daaa);
+  Keyboard.release('n');
+  delay(ds);
+}
+
+digitalWrite(A,HIGH);
+digitalWrite(B,HIGH);
+digitalWrite(C,HIGH);
+tresA= analogRead(A3);
+//Serial.print("                                                           ");
+//Serial.print("tresA: ");
+//Serial.println(tresA);//debugg
+if(tresA > 1015){  
+  Keyboard.press('y');
+  delay(daaa);
+  Keyboard.release('y');
+   delay(ds);
+}
+else if (tresA < 40){
+   Keyboard.press('i');
+   delay(daaa);
+    Keyboard.release('i');
+ delay(ds);
+}
+
+digitalWrite(A,LOW);
+digitalWrite(B,LOW);
+digitalWrite(C,HIGH);
+unoB= analogRead(A3);
+//Serial.print("                                                           ");
+//Serial.print("unoB: ");
+//Serial.println(unoB);
+if(unoB > 1015){  
+  Keyboard.press('e');
+ delay(daaa);
+    Keyboard.release('e');
+ delay(ds);
+}
+else if (unoB < 5){
+   Keyboard.press('g');
+ delay(daaa);
+    Keyboard.release('g');
+ delay(ds);
+}
+//|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+                                                                                  //||L E F T  M O D||\\
+digitalWrite(AA,HIGH);
+digitalWrite(BB,HIGH);
+digitalWrite(CC,LOW);
+dosAA=analogRead(OutMuxi);
+//Serial.print("                                                           ");
+//Serial.print("unoB: ");
+//Serial.println(unoB);
+if(dosAA>800){
+ Keyboard.press(scrup);
+  delay(daa);
+  Keyboard.release(scrup);
+   delay(ds);
+}
+dosAAxd=digitalRead(OutMuxi);
+ if (dosAAxd==LOW&&pipademanzana==HIGH){ 
+  Keyboard.press(scown);}
+  
+ if (dosAAxd==HIGH&&pipademanzana==LOW){ 
+  Keyboard.release(scown);
+}
+pipademanzana=dosAAxd;
+
+digitalWrite(AA,HIGH);
+digitalWrite(BB,LOW);
+digitalWrite(CC,HIGH);
+dosBB=analogRead(OutMuxi);
+//Serial.print("                                                           ");
+//Serial.print("unoB: ");
+//Serial.println(unoB);
+if(dosBB>702){
+  Keyboard.press('d');
+ delay(daaa);
+   Keyboard.release('d');
+    delay(ds);
+}
+else if (dosBB<90){
+   Keyboard.press('a');
+ delay(daaa);
+  Keyboard.release('a');
+   delay(ds);
+}
+
+digitalWrite(AA,LOW);
+digitalWrite(BB,HIGH);
+digitalWrite(CC,LOW);
+cuatroAA=analogRead(OutMuxi);
+//Serial.print("                                                           ");
+//Serial.print("unoB: ");
+//Serial.println(unoB);
+if(cuatroAA>980){
+  Keyboard.press('w');
+ delay(daaa);
+  Keyboard.release('w');
+   delay(ds);
+ 
+}
+else if (cuatroAA<100){
+   Keyboard.press('s');
+   delay(daaa);
+ Keyboard.release('s');
+ delay(ds);
+}
+
+digitalWrite(AA,LOW);
+digitalWrite(BB,LOW);
+digitalWrite(CC,LOW);
+cuatroBB=analogRead(OutMuxi);
+//Serial.print("                                                           ");
+//Serial.print("unoB: ");
+//Serial.println(unoB);
+if(cuatroBB>750){
+  Keyboard.press(scright);
+ delay(daaa);
+  Keyboard.release(scright);
+    delay(ds);
+}
+else if (cuatroBB<90){
+   Keyboard.press(scleft);
+  delay(daa);
+    Keyboard.release(scleft);
+ delay(ds);
+}
+
+digitalWrite(AA,LOW);
+digitalWrite(BB,LOW);
+digitalWrite(CC,HIGH);
+unoAA=analogRead(A2);
+//Serial.print("                                                           ");
+//Serial.print("unoB: ");
+//Serial.println(unoB);
+if(unoAA>700){
+  Keyboard.press('k');
+  delay(daaa);
+   Keyboard.release('k');
+ delay(ds);
+}
+else if (unoAA<90){
+   Keyboard.press('u');
+    delay(daaa);
+     Keyboard.release('u');
+   delay(ds);
+}
+
+digitalWrite(AA,HIGH);
+digitalWrite(BB,LOW);
+digitalWrite(CC,LOW);
+tresBB=analogRead(A2);
+//Serial.print("                                                           ");
+//Serial.print("unoB: ");
+//Serial.println(unoB);
+if(tresBB>700){
+  Keyboard.press('q');
+  delay(daaa);
+   Keyboard.release('q');
+  delay(ds);
+}
+else if (tresBB<90){
+   Keyboard.press('o');
+   delay(daaa);
+   Keyboard.release('o');
+   delay(ds);
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////J MOD MOUSE//////////////////////
+ vertValue = analogRead(vertPin) - vertZero;  // read vertical offset
+  horzValue = analogRead(horzPin) - horzZero;  // read horizontal offset
+
+  if (vertValue != 0)
+    Mouse.move(0, (invertMouse * (vertValue / sensitivity)), 0); // move mouse on y axis
+  if (horzValue != 0)
+    Mouse.move((invertMouseR * (horzValue / sensitivity)), 0, 0);// move mouse on x axis
+
+  if ((digitalRead(selPin) == 0) && (!mouseClickFlag))  // if the joystick button is pressed
+  {    mouseClickFlag = 1;  
+
+    Mouse.press(MOUSE_LEFT);
+  // click the left button down
+  }
+  else if ((digitalRead(selPin)) && (mouseClickFlag)) // if the joystick button is not pressed
+  {
+    mouseClickFlag = 0;
+    Mouse.release(MOUSE_LEFT);  // release the left button
+   
+  }
+
+
+  }
+
+//                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
