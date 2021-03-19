@@ -1,0 +1,504 @@
+// esta perra mamada te permite que una perilla pueda mapearse hasta 1024 valores diferentes ya que contiene 6 switches en binario(64) x 16 canales c:
+//invento de tu padre santo ajajajaj <3 puedes extender los switches y tener demasiados valores siento que 1024 ya son interminables tho
+
+#include <CapacitiveSensor.h>
+/////////////////A N T E N A E ////////////////////
+CapacitiveSensor sensor = CapacitiveSensor(12,11); 
+byte antenae=179;
+byte antenaee=179;
+int ultival=0;
+
+int ultival1=0;
+CapacitiveSensor sensori = CapacitiveSensor(13,10);  
+//////////////////////////////////////////////////////
+/////////////////BINARY STATUS DECLARATION////////////////////////////
+
+int X=4;
+int Y=5;
+int J=6;
+int Z= 7;
+int Z32;
+int Z16;
+
+byte LANETS = 144;
+
+int Z8;
+int Z4;
+int Z2;
+int Z1;
+int Z3;
+int zold;
+int zild;
+int zizi;
+int zaza;
+int zuzu;
+int zeze;
+int zI;
+int mimi=0;
+int alas[4]={100,101,102,103};
+///////////////BINARY TRADUCCION////////////////////////
+int becalos;
+int boomers;
+int nonoo;
+int nenee;
+int nanaa;
+int ninii;
+int nunuu;
+int nena;
+
+///////////////////// P O T E S /////////////////////////////////////////////////////////////////////
+int val = 4; //Our initial pot values. We need one for the first value and a second to test if there has been a change made. This needs to be done for all 3 pots.
+int lastVal11 = 0;
+int val2 = 5;
+int lastVal2 = 0;
+int val3 = 6;
+int lastVal3 = 0;
+int val4 = 7;
+int lastVal4 = 0;
+
+////////////////////   P I E Z O    /////////////////////////////////////////////////////////////////////7
+int swish;
+int noteOn1 = 144;
+int piezo1 = A0;
+int threshold1 = 80;//
+int noteOn2 = 144;
+int piezo2 = A1;
+int threshold2 = 20;//
+int noteOn3 = 144;
+int piezo3 = A2;
+int threshold3 = 80;//
+int noteOn4 = 144;
+int piezo4 = A3;
+int threshold4 = 80;//
+// this constant won't change:
+const int  buttonPin = 9;    
+const int bubulubu=8;
+const int  bocadin = 2;    
+const int abuelita=3;
+
+////////////// G E O R G E  B U S H //////////////////////////////////////777
+byte noteON=144;
+int bebelin[]={12,13,18,24,25,30,36,37,42,48,49,54,60,61,66,72,73,78,84,85,90,96,97,102,108,109,114,120,121,126};//c,c#,f#
+// Variables will change:
+int buttonPushCounter = 0;   // counter for the number of button presses
+int buttonState = 0;         // current state of the button
+int lastButtonState = 0;     // previous state of the button
+
+byte noteONion=144;
+int bebelean[]={14,15,19,26,27,31,38,39,43,50,51,55,62,63,67,74,75,79,86,87,91,98,99,103,110,111,115,122,123,127};//d,d#,g
+// Variables will change:
+int buttonPushCounter1 = 0;   // counter for the number of button presses
+int buttonState1 = 0;         // current state of the button
+int lastButtonState1 = 0;     // previous state of the button
+
+byte noteOA=144;
+int bendiez[]={16,17,21,28,29,33,40,41,45,52,53,57,64,65,69,76,77,81,88,89,93,100,101,105,112,113,117,124,125};//e,f,a
+// Variables will change:
+int buttonPushCounter2 = 0;   // counter for the number of button presses
+int buttonState2 = 0;         // current state of the button
+int lastButtonState2 = 0;     // previous state of the button
+
+byte nandeska=144;
+int bebeleano[]={20,22,23,32,34,35,44,45,47,56,58,59,68,70,71,80,82,83,92,94,95,104,106,107,116,118,119};//g#,a#,b
+// Variables will change:
+int buttonPushCounter3 = 0;   // counter for the number of button presses
+int buttonState3 = 0;         // current state of the button
+int lastButtonState3 = 0;     // previous state of the button
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+void setup() {
+  // initialize the button pin as a input:
+  pinMode(buttonPin, INPUT);
+   pinMode(Z,INPUT);
+
+
+  Serial.begin(9600);
+}
+ void loop() {
+
+ //// A N T E N A E /////////////////////////////
+ 
+ long measurement =  sensor.capacitiveSensor(62)/90;
+
+   if (measurement>14&&measurement != ultival) //
+   {
+   MIDImessage(antenae,alas[mimi]+4,measurement); } 
+   ultival = measurement;
+   
+long measurementa =  sensori.capacitiveSensor(60)/88;//
+////Serial.print("            ");
+ //Serial.println(measurement);
+//Serial.print("                 ");
+  // Serial.println(measurementa);
+  
+  if (measurementa>4&&measurementa != ultival1) //
+   {
+   MIDImessage(antenaee,alas[mimi],measurementa); }        // 176 = CC command (channel 1 control change), 1 = Which Control, val = value read from Potentionmeter 1 NOTE THIS SAYS VAL not VA1 (lowercase of course)
+   ultival1 = measurementa;
+   
+/////////////////////////////////////////////////////
+
+///// B I N A R I O //////////
+
+digitalWrite(X,HIGH);
+digitalWrite(Y,HIGH);  
+digitalWrite(J,LOW);   
+Z3=digitalRead(Z);
+if(Z3 != zI) {
+
+  mimi++;
+  if(mimi==5){
+    mimi=0;
+  }
+ // Serial.print("m= ");
+ // Serial.println(mimi);
+  delay(90);
+}
+digitalWrite(X,LOW);
+digitalWrite(Y,LOW);  
+digitalWrite(J,LOW);   
+Z32=digitalRead(Z);
+if(Z32 != zold) {
+  //Serial.print("32:");
+  //Serial.println(Z32);
+  zold=Z32;
+  delay(90);
+}
+
+digitalWrite(X,HIGH);
+digitalWrite(Y,LOW);  
+digitalWrite(J,LOW);   
+Z1=digitalRead(Z);
+if(Z1 != zild) {
+  //Serial.print("     ");
+  //Serial.print("1:");
+  //Serial.println(Z1);
+  zild=Z1;
+  delay(90);
+}
+
+digitalWrite(X,LOW);
+digitalWrite(Y,LOW);  
+digitalWrite(J,HIGH);   
+Z4=digitalRead(Z);
+if(Z4 != zuzu) {
+  //Serial.print("        ");
+  //Serial.print("4:");
+  //Serial.println(Z4);
+  zuzu=Z4;
+  delay(90);
+}
+
+digitalWrite(X,HIGH);
+digitalWrite(Y,LOW);  
+digitalWrite(J,HIGH);   
+Z16=digitalRead(Z);
+if(Z16 != zaza) {
+  //Serial.print("           ");
+  //Serial.print("16:");
+  //Serial.println(Z16);
+  zaza=Z16;
+  delay(90);
+}
+
+digitalWrite(X,LOW);
+digitalWrite(Y,HIGH);  
+digitalWrite(J,HIGH);   
+Z2=digitalRead(Z);
+if(Z2 != zeze) {
+  //Serial.print("                  ");
+  //Serial.print("2:");
+  //Serial.println(Z2);
+  zeze=Z2;
+  delay(90);
+}
+
+digitalWrite(X,HIGH);
+digitalWrite(Y,HIGH);  
+digitalWrite(J,HIGH);   
+Z8=digitalRead(Z);
+if(Z8 != zizi) {
+  //Serial.print("                          ");
+  //Serial.print("8:");
+  //Serial.println(Z8);
+  zizi=Z8;
+  delay(90);
+}
+/////////T R A D U C C I O N////////////////////////////////
+nena=Z1*1;
+nunuu=Z2*2;
+ninii=Z4*4;
+nenee=Z8*8;
+nonoo=Z16*16;
+nanaa=Z32*32;
+
+becalos=nena+nunuu+ninii+nenee+nonoo+nanaa;
+
+if(becalos != boomers){
+ // Serial.print("                                          ");
+  //Serial.print(";): ");
+  //Serial.print(becalos);
+  boomers=becalos;
+  midimeme(LANETS,9,0);
+  delay(90);
+}
+else {
+ 
+}
+////////////////////////////////////////////////////////////////////////////////// 
+////////////////////////////////// P O T E E S S  //////////////////////////////////////////////777
+///////////////////////MA RI GU AN AL///////////////////////////////////////////
+   val = analogRead(4)/8;   // 
+   if (val != lastVal11) //
+   {
+   MIDImessage(176,becalos,val);}         // 176 = CC command (channel 1 control change), 1 = Which Control, val = value read from Potentionmeter 1 NOTE THIS SAYS VAL not VA1 (lowercase of course)
+   lastVal11 = val;
+
+   val2 = analogRead(5)/8;   // Divide by 8 to get range of 0-127 for midi
+   if (val2 != lastVal2) 
+   {
+   MIDImessage(176,becalos+5,val2);}         // 176 = CC command, 2 = Which Control, val = value read from Potentionmeter 2
+   lastVal2 = val2;
+   
+   val3 = analogRead(6)/8;   // Divide by 8 to get range of 0-127 for midi
+   if (val3 != lastVal3) 
+   {
+   MIDImessage(176,becalos+6,val3);}         // 176 = CC command, 3 = Which Control, val = value read from Potentionmeter 3
+   lastVal3 = val3;
+
+      val4 = analogRead(7)/8;   // Divide by 8 to get range of 0-127 for midi
+   if (val4 != lastVal4) 
+   {
+   MIDImessage(176,becalos+7,val4);}         // 176 
+   lastVal4 = val4;
+   delay(10);
+
+
+
+  
+  
+//////////////////////////////////// P I E Z O //////////////////////////////////////////////////////////////////
+int piezoVal1 = analogRead(piezo1);
+
+  if (piezoVal1>threshold1){
+   
+    int maxPiezoVal1 = getMaxVal(piezoVal1);
+    byte velocity1 = map(maxPiezoVal1, 0, 1023, 28, 127);//velocity between 50 and 127 based on max val from piezo
+    midimessage(noteOn1, bebelin[buttonPushCounter], velocity1);
+ delay(50);
+    midimessage(noteOn1, bebelin[buttonPushCounter], 0);
+  }
+
+  int piezoVal2 = analogRead(piezo2);
+  if (piezoVal2>threshold2){
+    int maxPiezoVal2 = getMaxVal2(piezoVal2);
+    byte velocity2 = map(maxPiezoVal2, 0, 1023, 28, 127);//velocity between 50 and 127 based on max val from piezo
+    MIDImessage(noteOn2,bebelean[buttonPushCounter1], velocity2);
+     delay(150);
+   MIDImessage(noteOn2, bebelean[buttonPushCounter1], 0);
+  }
+
+
+  int piezoVal3 = analogRead(piezo3);
+  if (piezoVal3>threshold3){
+    int maxPiezoVal3 = getMaxVal3(piezoVal3);
+    byte velocity3 = map(maxPiezoVal3, 0, 1023, 28, 127);//velocity between 50 and 127 based on max val from piezo
+    MIDImessage(noteOn3, bendiez[buttonPushCounter2], velocity3);
+    delay(50);
+   MIDImessage(noteOn3, bendiez[buttonPushCounter2], 0);
+  }
+ 
+
+  int piezoVal4 = analogRead(piezo4);
+  if (piezoVal4>threshold4){
+    int maxPiezoVal4 = getMaxVal4(piezoVal4);
+    byte velocity4 = map(maxPiezoVal4, 0, 1023, 28, 127);//velocity between 50 and 127 based on max val from piezo
+    MIDImessage(nandeska, bebeleano[buttonPushCounter3], velocity4);
+    delay(50);
+   MIDImessage(nandeska, bebeleano[buttonPushCounter3], 0);
+  }
+  /////////////////////////////////////////////////////////////////////////////////////////////
+  ////// G  E  O  R  G  E    B   U   S   H //////////////////////////////////////////////
+  buttonState = digitalRead(buttonPin);
+
+  // compare the buttonState to its previous state
+  if (buttonState != lastButtonState) {
+    // if the state has changed, increment the counter
+    if (buttonState == HIGH) {
+      // if the current state is HIGH then the button went from off to on:
+      buttonPushCounter++;
+       midimessage(noteON,1,0);
+      if(buttonPushCounter==30){
+         buttonPushCounter=0;
+      }
+     
+     // Serial.println("on");
+     // Serial.print("number of button pushes: ");
+      //Serial.println(buttonPushCounter);
+       delay(80);
+      
+    } else {
+      // if the current state is LOW then the button went from on to off:
+      //Serial.println("off");
+       midimessage(noteON,1,0);
+       delay(10);
+    }
+    // Delay a little bit to avoid bouncing
+    delay(80);
+  }
+  // save the current state as the last state, for next time through the loop
+  lastButtonState = buttonState;
+
+
+  buttonState1 = digitalRead(bubulubu);
+
+  // compare the buttonState to its previous state
+  if (buttonState1 != lastButtonState1) {
+    // if the state has changed, increment the counter
+    if (buttonState1 == HIGH) {
+      // if the current state is HIGH then the button went from off to on:
+      buttonPushCounter1++;
+       midimessage(noteONion,2,0);
+      if(buttonPushCounter1==30){
+         buttonPushCounter1=0;
+      }
+     
+     // Serial.println("on");
+     // Serial.print("number of button pushes: ");
+      //Serial.println(buttonPushCounter);
+       delay(80);
+      
+    } else {
+      // if the current state is LOW then the button went from on to off:
+      //Serial.println("off");
+       midimessage(noteONion,2,0);
+       delay(10);
+    }
+    // Delay a little bit to avoid bouncing
+    delay(50);
+  }
+  // save the current state as the last state, for next time through the loop
+  lastButtonState1 = buttonState1;
+
+
+  buttonState2 = digitalRead(bocadin);
+
+  // compare the buttonState to its previous state
+  if (buttonState2 != lastButtonState2) {
+    // if the state has changed, increment the counter
+    if (buttonState2 == HIGH) {
+      // if the current state is HIGH then the button went from off to on:
+      buttonPushCounter2++;
+       midimessage(noteOA,3,0);
+      if(buttonPushCounter2==29){
+         buttonPushCounter2=0;
+      }
+     
+     // Serial.println("on");
+     // Serial.print("number of button pushes: ");
+      //Serial.println(buttonPushCounter);
+       delay(80);
+      
+    } else {
+      // if the current state is LOW then the button went from on to off:
+      //Serial.println("off");
+       midimessage(noteOA,3,0);
+       delay(10);
+    }
+    // Delay a little bit to avoid bouncing
+    delay(50);
+  }
+  // save the current state as the last state, for next time through the loop
+  lastButtonState2 = buttonState2;
+  
+
+  buttonState3 = digitalRead(abuelita);
+
+  // compare the buttonState to its previous state
+  if (buttonState3 != lastButtonState3) {
+    // if the state has changed, increment the counter
+    if (buttonState3 == HIGH) {
+      // if the current state is HIGH then the button went from off to on:
+      buttonPushCounter3++;
+       midimessage(nandeska,4,0);
+      if(buttonPushCounter3==26){
+         buttonPushCounter3=0;
+      }
+     
+     // Serial.println("on");
+     // Serial.print("number of button pushes: ");
+      //Serial.println(buttonPushCounter);
+       delay(80);
+      
+    } else {
+      // if the current state is LOW then the button went from on to off:
+      //Serial.println("off");
+       midimessage(nandeska,4,0);
+       delay(10);
+    }
+    // Delay a little bit to avoid bouncing
+    delay(50);
+  }
+  // save the current state as the last state, for next time through the loop
+  lastButtonState3 = buttonState3;
+
+}
+
+void midimessage(byte command,byte data1,byte data2){
+  Serial.write(command);
+  Serial.write(data1);
+  Serial.write(data2);
+}
+
+void MIDImessage(byte command,byte data1,byte data2){
+  Serial.write(command);
+  Serial.write(data1);
+  Serial.write(data2);
+}
+
+void midimeme(byte command,byte data1,byte data2){
+  Serial.write(command);
+  Serial.write(data1);
+  Serial.write(data2);
+}
+
+
+//PIEZO SENSE/////////////
+int getMaxVal(int lastVal1){
+  int currentVal1 = analogRead(piezo1);
+  while (currentVal1>lastVal1){
+    lastVal1 = currentVal1;
+    currentVal1 = analogRead(piezo1);
+  }
+  return lastVal1;
+}
+
+int getMaxVal2(int lastVal2){
+  int currentVal2 = analogRead(piezo2);
+  while (currentVal2>lastVal2){
+    lastVal2 = currentVal2;
+    currentVal2 = analogRead(piezo2);
+  }
+  return lastVal2;
+}
+
+int getMaxVal3(int lastVal3){
+  int currentVal3 = analogRead(piezo3);
+  while (currentVal3>lastVal3){
+    lastVal3 = currentVal3;
+    currentVal3 = analogRead(piezo3);
+  }
+  return lastVal3;
+}
+
+int getMaxVal4(int lastVal4){
+  int currentVal4 = analogRead(piezo4);
+  while (currentVal4>lastVal4){
+    lastVal4 = currentVal4;
+    currentVal4 = analogRead(piezo4);
+  }
+  return lastVal4;
+}
