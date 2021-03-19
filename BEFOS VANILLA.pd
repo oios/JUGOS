@@ -1,0 +1,4 @@
+#N canvas 261 166 836 689 12;
+#X obj 145 85 cnv 15 800 800 empty empty empty 20 12 0 14 -33289 -66577
+0;
+#X obj 320 294 Amigosdvd;

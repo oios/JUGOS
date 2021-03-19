@@ -1,0 +1,13 @@
+#N canvas 0 50 698 300 12;
+#X obj 263 176 else/blocksize~;
+#X obj 109 123 else/samps2ms;
+#X obj 85 196 else/op~;
+#X obj 146 250 else/loop;
+#X obj 274 225 else/downsample~;
+#X obj 282 276 else/ffdelay~;
+#X obj 308 48 else/crusher~;
+#X obj 118 24 else/stretch.shift~;
+#X obj 38 84 else/freeze~;
+#X obj 36 249 else/lorenz~;
+#X obj 185 191 else/xmod2~;
+#X obj 359 123 else/pan2~;
